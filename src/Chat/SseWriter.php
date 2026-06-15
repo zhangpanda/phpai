@@ -21,12 +21,16 @@ final class SseWriter
 {
     public static function start(): void
     {
+        if (headers_sent($file, $line)) {
+            throw new \RuntimeException("Cannot start SSE: headers already sent in {$file}:{$line}");
+        }
+
         header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
         header('Connection: keep-alive');
         header('X-Accel-Buffering: no');
 
-        if (ob_get_level() > 0) {
+        while (ob_get_level() > 0) {
             ob_end_flush();
         }
     }

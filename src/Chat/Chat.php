@@ -17,26 +17,28 @@ final class Chat
 
     /**
      * @template T of object
+     * @param list<Message> $messages
      * @param class-string<T> $outputClass
+     * @param array<string, mixed> $options
      * @return T
      */
-    public static function structured(ChatInterface $chat, array $messages, string $outputClass): object
+    public static function structured(ChatInterface $chat, array $messages, string $outputClass, array $options = []): object
     {
         self::$extractor ??= new SchemaExtractor();
         self::$deserializer ??= new Deserializer();
 
         $schema = self::$extractor->extract($outputClass);
 
-        $response = $chat->send($messages, [
-            'response_format' => [
-                'type' => 'json_schema',
-                'json_schema' => [
-                    'name' => 'response',
-                    'schema' => $schema,
-                    'strict' => true,
-                ],
+        $options['response_format'] = [
+            'type' => 'json_schema',
+            'json_schema' => [
+                'name' => 'response',
+                'schema' => $schema,
+                'strict' => true,
             ],
-        ]);
+        ];
+
+        $response = $chat->send($messages, $options);
 
         return self::$deserializer->deserialize($response->content, $outputClass);
     }

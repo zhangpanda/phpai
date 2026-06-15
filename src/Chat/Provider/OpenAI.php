@@ -47,7 +47,7 @@ final class OpenAI implements ChatInterface, \Synapse\Chat\StreamableInterface
             'response_format' => $options['response_format'] ?? null,
             'temperature' => $options['temperature'] ?? null,
             'max_tokens' => $options['max_tokens'] ?? null,
-        ]);
+        ], fn($v) => $v !== null);
 
         try {
             $httpResponse = $this->client->request('POST', $this->baseUrl . '/chat/completions', [
@@ -86,7 +86,7 @@ final class OpenAI implements ChatInterface, \Synapse\Chat\StreamableInterface
             'tools' => $options['tools'] ?? null,
             'temperature' => $options['temperature'] ?? null,
             'max_tokens' => $options['max_tokens'] ?? null,
-        ]);
+        ], fn($v) => $v !== null);
 
         try {
             $httpResponse = $this->client->request('POST', $this->baseUrl . '/chat/completions', [

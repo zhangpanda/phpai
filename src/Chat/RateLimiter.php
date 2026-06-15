@@ -21,6 +21,12 @@ final class RateLimiter
         private readonly int $maxRequests,
         private readonly int $perSeconds = 60,
     ) {
+        if ($maxRequests < 1) {
+            throw new \InvalidArgumentException('maxRequests must be at least 1');
+        }
+        if ($perSeconds < 1) {
+            throw new \InvalidArgumentException('perSeconds must be at least 1');
+        }
         $this->tokens = (float) $maxRequests;
         $this->lastRefill = microtime(true);
     }

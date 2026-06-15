@@ -26,22 +26,24 @@ final class RetryHandler
      */
     public function execute(callable $fn): mixed
     {
-        $attempt = 0;
+        $lastException = null;
 
-        while (true) {
+        for ($attempt = 0; $attempt <= $this->maxRetries; $attempt++) {
             try {
                 return $fn();
             } catch (ChatException $e) {
-                $attempt++;
+                $lastException = $e;
 
                 if ($attempt >= $this->maxRetries || !$this->isRetryable($e)) {
                     throw $e;
                 }
 
-                $delay = $this->calculateDelay($attempt, $e);
+                $delay = $this->calculateDelay($attempt + 1, $e);
                 usleep($delay * 1000);
             }
         }
+
+        throw $lastException;
     }
 
     private function isRetryable(ChatException $e): bool

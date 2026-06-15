@@ -97,12 +97,13 @@ final class Team
 
     private function resolveAgentName(string $raw): ?string
     {
-        $lower = strtolower(trim($raw));
-        // Exact match
-        if (isset($this->agents[$lower])) {
-            return $lower;
+        $trimmed = trim($raw);
+        // Exact match first
+        if (isset($this->agents[$trimmed])) {
+            return $trimmed;
         }
         // Case-insensitive match
+        $lower = strtolower($trimmed);
         foreach (array_keys($this->agents) as $name) {
             if (strtolower($name) === $lower || str_contains($lower, strtolower($name))) {
                 return $name;
