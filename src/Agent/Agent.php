@@ -119,8 +119,8 @@ final class Agent
             if (!$response->hasToolCalls()) {
                 try {
                     $this->memory?->save([Message::user($context->input), Message::assistant($response->content)]);
-                } catch (\Throwable) {
-                    // Memory failure must not kill the agent
+                } catch (\Throwable $e) {
+                    error_log("[Synapse] Memory save failed: " . $e->getMessage());
                 }
 
                 return new AgentResponse(
@@ -152,15 +152,21 @@ final class Agent
     private function sanitizeMessages(array $messages): array
     {
         $result = [];
+        $hasAssistantWithTools = false;
+
         foreach ($messages as $msg) {
-            if ($msg->role === Role::Tool) {
-                // Check if previous message is assistant with toolCalls
-                $prev = end($result);
-                if (!$prev || $prev->role !== Role::Assistant || empty($prev->toolCalls)) {
-                    continue; // Skip orphan tool message
+            if ($msg->role === Role::Assistant && !empty($msg->toolCalls)) {
+                $hasAssistantWithTools = true;
+                $result[] = $msg;
+            } elseif ($msg->role === Role::Tool) {
+                if ($hasAssistantWithTools) {
+                    $result[] = $msg;
                 }
+                // else: skip orphan tool message
+            } else {
+                $hasAssistantWithTools = false;
+                $result[] = $msg;
             }
-            $result[] = $msg;
         }
         return $result;
     }

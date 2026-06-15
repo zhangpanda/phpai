@@ -37,12 +37,15 @@ final class InMemoryStore implements VectorStoreInterface
 
     private function cosineSimilarity(array $a, array $b): float
     {
+        if (count($a) !== count($b)) {
+            return 0.0; // Dimension mismatch — incomparable
+        }
+
         $dot = 0.0;
         $normA = 0.0;
         $normB = 0.0;
-        $len = min(count($a), count($b));
 
-        for ($i = 0; $i < $len; $i++) {
+        for ($i = 0, $len = count($a); $i < $len; $i++) {
             $dot += $a[$i] * $b[$i];
             $normA += $a[$i] * $a[$i];
             $normB += $b[$i] * $b[$i];
