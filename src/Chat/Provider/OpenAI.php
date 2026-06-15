@@ -10,6 +10,7 @@ use Synapse\Chat\ChatException;
 use Synapse\Chat\ChatInterface;
 use Synapse\Chat\Message;
 use Synapse\Chat\Response;
+use Synapse\Chat\RetryHandler;
 use Synapse\Chat\Role;
 use Synapse\Chat\ToolCall;
 use Synapse\Chat\Usage;
@@ -17,17 +18,27 @@ use Synapse\Chat\Usage;
 final class OpenAI implements ChatInterface, \Synapse\Chat\StreamableInterface
 {
     private ClientInterface $client;
+    private RetryHandler $retry;
 
     public function __construct(
         private readonly string $apiKey,
         private readonly string $model = 'gpt-4o',
         private readonly string $baseUrl = 'https://api.openai.com/v1',
         ?ClientInterface $client = null,
+        ?RetryHandler $retry = null,
     ) {
         $this->client = $client ?? new Client();
+        $this->retry = $retry ?? new RetryHandler();
     }
 
     public function send(array $messages, array $options = []): Response
+    {
+        return $this->retry->execute(function () use ($messages, $options) {
+            return $this->doSend($messages, $options);
+        });
+    }
+
+    private function doSend(array $messages, array $options): Response
     {
         $body = array_filter([
             'model' => $options['model'] ?? $this->model,
