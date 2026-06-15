@@ -14,7 +14,7 @@ use Synapse\Chat\Role;
 use Synapse\Chat\ToolCall;
 use Synapse\Chat\Usage;
 
-final class OpenAI implements ChatInterface
+final class OpenAI implements ChatInterface, \Synapse\Chat\StreamableInterface
 {
     private ClientInterface $client;
 

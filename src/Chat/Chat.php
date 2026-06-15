@@ -42,15 +42,14 @@ final class Chat
     }
 
     /**
-     * Stream a chat response (OpenAI compatible providers).
+     * Stream a chat response.
      */
     public static function stream(ChatInterface $chat, array $messages, array $options = []): StreamResponse
     {
-        if (!$chat instanceof Provider\OpenAI && !method_exists($chat, 'streamRaw')) {
+        if (!$chat instanceof StreamableInterface) {
             throw new \RuntimeException('Provider does not support streaming');
         }
 
-        $options['stream'] = true;
         $generator = $chat->streamRaw($messages, $options);
         return new StreamResponse($generator);
     }

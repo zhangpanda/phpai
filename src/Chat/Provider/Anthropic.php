@@ -14,7 +14,7 @@ use Synapse\Chat\Role;
 use Synapse\Chat\ToolCall;
 use Synapse\Chat\Usage;
 
-final class Anthropic implements ChatInterface
+final class Anthropic implements ChatInterface, \Synapse\Chat\StreamableInterface
 {
     private ClientInterface $client;
 
@@ -137,6 +137,86 @@ final class Anthropic implements ChatInterface
             'role' => $message->role === Role::Assistant ? 'assistant' : 'user',
             'content' => $content !== [] ? $content : $message->content,
         ];
+    }
+
+    /** @return \Generator<int, string> */
+    public function streamRaw(array $messages, array $options = []): \Generator
+    {
+        $systemParts = [];
+        $filtered = [];
+
+        foreach ($messages as $message) {
+            if ($message->role === Role::System) {
+                $systemParts[] = $message->content;
+            } else {
+                $filtered[] = $this->formatMessage($message);
+            }
+        }
+
+        $system = $systemParts !== [] ? implode("\n\n", $systemParts) : null;
+
+        $body = array_filter([
+            'model' => $options['model'] ?? $this->model,
+            'max_tokens' => $options['max_tokens'] ?? $this->maxTokens,
+            'system' => $system,
+            'messages' => $filtered,
+            'stream' => true,
+            'temperature' => $options['temperature'] ?? null,
+        ]);
+
+        try {
+            $httpResponse = $this->client->request('POST', $this->baseUrl . '/messages', [
+                'headers' => [
+                    'x-api-key' => $this->apiKey,
+                    'anthropic-version' => '2023-06-01',
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => $body,
+                'stream' => true,
+            ]);
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            throw ChatException::fromGuzzle($e, 'Anthropic');
+        }
+
+        $stream = $httpResponse->getBody();
+        $buffer = '';
+
+        while (!$stream->eof()) {
+            $chunk = $stream->read(1024);
+            if ($chunk === '') {
+                continue;
+            }
+
+            $buffer .= $chunk;
+
+            while (($pos = strpos($buffer, "\n")) !== false) {
+                $line = substr($buffer, 0, $pos);
+                $buffer = substr($buffer, $pos + 1);
+                $line = trim($line);
+
+                if ($line === '' || !str_starts_with($line, 'data: ')) {
+                    continue;
+                }
+
+                $json = substr($line, 6);
+                $data = json_decode($json, true);
+
+                if (!is_array($data)) {
+                    continue;
+                }
+
+                $type = $data['type'] ?? '';
+
+                if ($type === 'content_block_delta') {
+                    $text = $data['delta']['text'] ?? '';
+                    if ($text !== '') {
+                        yield $text;
+                    }
+                } elseif ($type === 'message_stop') {
+                    return;
+                }
+            }
+        }
     }
 
     private function parseResponse(array $data): Response

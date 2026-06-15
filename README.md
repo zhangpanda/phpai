@@ -225,9 +225,9 @@ vendor/bin/phpstan analyse
 - [x] Agent (ReAct)
 - [x] MCP Server + Client
 - [x] RAG Pipeline
-- [ ] Laravel 集成包
-- [ ] 流式输出 Web 集成
-- [ ] Multi-Agent 协作
+- [x] Laravel 集成包
+- [x] 流式输出 Web 集成
+- [x] Multi-Agent 协作
 - [ ] 向量数据库支持（PgVector、Qdrant）
 
 ## 参与贡献

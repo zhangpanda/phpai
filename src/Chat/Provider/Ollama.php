@@ -8,11 +8,13 @@ use GuzzleHttp\ClientInterface;
 use Synapse\Chat\ChatInterface;
 use Synapse\Chat\Response;
 
+use Synapse\Chat\StreamableInterface;
+
 /**
  * Ollama provider — uses OpenAI-compatible API format.
  * Default connects to local Ollama at http://localhost:11434
  */
-final class Ollama implements ChatInterface
+final class Ollama implements ChatInterface, StreamableInterface
 {
     private readonly OpenAI $openai;
 
