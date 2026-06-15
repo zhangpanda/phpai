@@ -50,7 +50,7 @@ final class Anthropic implements ChatInterface, \Synapse\Chat\StreamableInterfac
             'messages' => $filtered,
             'tools' => isset($options['tools']) ? $this->formatTools($options['tools']) : null,
             'temperature' => $options['temperature'] ?? null,
-        ]);
+        ], fn($v) => $v !== null);
 
         try {
             $httpResponse = $this->client->request('POST', $this->baseUrl . '/messages', [
@@ -162,7 +162,7 @@ final class Anthropic implements ChatInterface, \Synapse\Chat\StreamableInterfac
             'messages' => $filtered,
             'stream' => true,
             'temperature' => $options['temperature'] ?? null,
-        ]);
+        ], fn($v) => $v !== null);
 
         try {
             $httpResponse = $this->client->request('POST', $this->baseUrl . '/messages', [
@@ -176,6 +176,12 @@ final class Anthropic implements ChatInterface, \Synapse\Chat\StreamableInterfac
             ]);
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             throw ChatException::fromGuzzle($e, 'Anthropic');
+        }
+
+        $statusCode = $httpResponse->getStatusCode();
+        if ($statusCode >= 400) {
+            $body = $httpResponse->getBody()->getContents();
+            throw new ChatException("Anthropic API returned HTTP {$statusCode}: " . substr($body, 0, 500), statusCode: $statusCode, provider: 'Anthropic');
         }
 
         $stream = $httpResponse->getBody();
@@ -212,6 +218,9 @@ final class Anthropic implements ChatInterface, \Synapse\Chat\StreamableInterfac
                     if ($text !== '') {
                         yield $text;
                     }
+                } elseif ($type === 'error') {
+                    $error = $data['error']['message'] ?? 'Unknown streaming error';
+                    throw new ChatException("Anthropic stream error: {$error}", provider: 'Anthropic');
                 } elseif ($type === 'message_stop') {
                     return;
                 }

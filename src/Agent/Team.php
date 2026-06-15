@@ -26,7 +26,7 @@ final class Team
 
     public function add(string $name, Agent $agent): self
     {
-        $this->agents[$name] = $agent;
+        $this->agents[$name] = clone $agent;
         return $this;
     }
 
