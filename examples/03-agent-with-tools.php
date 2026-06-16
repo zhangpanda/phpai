@@ -17,12 +17,20 @@ use Synapse\Tools\Param;
 // Define tools using Attributes
 class MathTool
 {
-    #[AsTool(description: 'Calculate a math expression')]
+    #[AsTool(description: 'Calculate a math expression (supports +, -, *, / with integers)')]
     public function calculate(
         #[Param(description: 'Math expression, e.g. "2 + 2 * 3"')] string $expression,
     ): string {
-        $result = eval("return {$expression};");
-        return "Result: {$result}";
+        // Safe evaluation: only allow digits, operators, spaces, parentheses, dots
+        if (!preg_match('/^[\d\s+\-*\/().]+$/', $expression)) {
+            return "Error: invalid expression";
+        }
+        try {
+            $result = eval("return ({$expression});"); // @phpstan-ignore-line — validated input
+            return "Result: {$result}";
+        } catch (\Throwable $e) {
+            return "Error: " . $e->getMessage();
+        }
     }
 }
 

@@ -14,7 +14,7 @@ use Synapse\Agent\Agent;
 use Synapse\Agent\Team;
 use Synapse\Chat\Provider\DeepSeek;
 
-$chat = new DeepSeek(apiKey: $_ENV['DEEPSEEK_API_KEY']);
+$chat = new DeepSeek(apiKey: $_ENV['DEEPSEEK_API_KEY'] ?? getenv('DEEPSEEK_API_KEY') ?: throw new RuntimeException('Set DEEPSEEK_API_KEY'));
 
 // --- Pipeline Mode ---
 $team = Team::create()

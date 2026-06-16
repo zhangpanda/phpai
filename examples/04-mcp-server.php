@@ -26,8 +26,16 @@ class DemoTools
     #[McpTool(description: '计算数学表达式')]
     public function calculate(string $expression): string
     {
-        $result = eval("return {$expression};");
-        return "计算结果: {$expression} = {$result}";
+        // Safe: only allow digits, operators, spaces, parentheses, dots
+        if (!preg_match('/^[\d\s+\-*\/().]+$/', $expression)) {
+            return "错误: 不合法的表达式";
+        }
+        try {
+            $result = eval("return ({$expression});"); // @phpstan-ignore-line — validated
+            return "计算结果: {$expression} = {$result}";
+        } catch (\Throwable $e) {
+            return "错误: " . $e->getMessage();
+        }
     }
 
     #[McpTool(description: '获取当前时间')]

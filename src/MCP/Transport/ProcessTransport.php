@@ -12,6 +12,7 @@ final class ProcessTransport implements TransportInterface
     private mixed $stdin;
     /** @var resource */
     private mixed $stdout;
+    private bool $closed = false;
 
     public function __construct(string $command, array $args = [], private readonly int $timeoutSeconds = 30)
     {
@@ -61,6 +62,10 @@ final class ProcessTransport implements TransportInterface
 
     public function close(): void
     {
+        if ($this->closed) {
+            return;
+        }
+        $this->closed = true;
         @fclose($this->stdin);
         @fclose($this->stdout);
         proc_terminate($this->process);

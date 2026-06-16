@@ -26,8 +26,11 @@ final class Template
 
     public function with(string $key, mixed $value): self
     {
+        if (!is_scalar($value) && $value !== null) {
+            throw new \InvalidArgumentException("Template variable '{$key}' must be scalar, got " . get_debug_type($value));
+        }
         $clone = clone $this;
-        $clone->variables[$key] = $value;
+        $clone->variables[$key] = (string) ($value ?? '');
         return $clone;
     }
 
@@ -64,6 +67,9 @@ final class Template
         foreach ($this->variables as $key => $value) {
             $result = str_replace("{{" . $key . "}}", (string) $value, $result);
         }
+
+        // Remove any unreplaced variable placeholders
+        $result = preg_replace('/\{\{\w+\}\}/', '', $result) ?? $result;
 
         return $result;
     }
