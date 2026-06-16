@@ -1,13 +1,13 @@
-# Synapse — PHP AI 框架
+# PHPAI — PHP AI 框架
 
 > Attribute 驱动、类型安全、可观测的 PHP AI 应用开发框架
 
 [![PHP](https://img.shields.io/badge/PHP-8.3+-blue.svg)](https://php.net)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
 
-## 为什么选择 Synapse？
+## 为什么选择 PHPAI？
 
-PHP 生态在 AI 应用开发上严重落后于 Python（LangChain）和 JavaScript（Vercel AI SDK）。Synapse 让 PHP 开发者用最熟悉的方式构建 AI 应用：
+PHP 生态在 AI 应用开发上严重落后于 Python（LangChain）和 JavaScript（Vercel AI SDK）。PHPAI 让 PHP 开发者用最熟悉的方式构建 AI 应用：
 
 - **Attribute 零配置** — 用 `#[AsTool]`、`#[AsOutput]` 声明一切，无需 YAML/XML
 - **类型安全** — LLM 返回的 JSON 自动映射为 PHP 强类型对象
@@ -18,8 +18,8 @@ PHP 生态在 AI 应用开发上严重落后于 Python（LangChain）和 JavaScr
 ## 安装
 
 ```bash
-git clone git@github.com:zhangpanda/synapse.git
-cd synapse
+git clone git@github.com:zhangpanda/phpai.git
+cd phpai
 composer install
 ```
 
@@ -28,8 +28,8 @@ composer install
 ### 基础对话
 
 ```php
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\Chat\Message;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\Chat\Message;
 
 $chat = new OpenAI(apiKey: $_ENV['OPENAI_API_KEY']);
 
@@ -45,7 +45,7 @@ echo "消耗 {$response->usage->totalTokens} tokens";
 ### 使用 DeepSeek（国内推荐）
 
 ```php
-use Synapse\Chat\Provider\DeepSeek;
+use PHPAI\Chat\Provider\DeepSeek;
 
 $chat = new DeepSeek(apiKey: $_ENV['DEEPSEEK_API_KEY']);
 
@@ -57,9 +57,9 @@ $response = $chat->send([
 ### 结构化输出
 
 ```php
-use Synapse\StructuredOutput\AsOutput;
-use Synapse\StructuredOutput\Param;
-use Synapse\Chat\Chat;
+use PHPAI\StructuredOutput\AsOutput;
+use PHPAI\StructuredOutput\Param;
+use PHPAI\Chat\Chat;
 
 #[AsOutput(description: '商品信息提取结果')]
 class ProductInfo
@@ -87,9 +87,9 @@ echo $product->category; // "电子"
 ### Agent + 工具调用
 
 ```php
-use Synapse\Agent\Agent;
-use Synapse\Tools\AsTool;
-use Synapse\Tools\Param;
+use PHPAI\Agent\Agent;
+use PHPAI\Tools\AsTool;
+use PHPAI\Tools\Param;
 
 class OrderTool
 {
@@ -115,8 +115,8 @@ echo $response->content; // "您的订单 SH20240101001 已发货..."
 ### MCP Server（让 Claude Desktop 调用你的 PHP 应用）
 
 ```php
-use Synapse\MCP\McpServer;
-use Synapse\MCP\McpTool;
+use PHPAI\MCP\McpServer;
+use PHPAI\MCP\McpTool;
 
 class MyTools
 {
@@ -148,11 +148,11 @@ McpServer::create('my-php-app')
 ### RAG（检索增强生成）
 
 ```php
-use Synapse\RAG\RagPipeline;
-use Synapse\RAG\TextFileLoader;
-use Synapse\RAG\RecursiveCharacterSplitter;
-use Synapse\RAG\OpenAIEmbedding;
-use Synapse\RAG\InMemoryStore;
+use PHPAI\RAG\RagPipeline;
+use PHPAI\RAG\TextFileLoader;
+use PHPAI\RAG\RecursiveCharacterSplitter;
+use PHPAI\RAG\OpenAIEmbedding;
+use PHPAI\RAG\InMemoryStore;
 
 $rag = new RagPipeline(
     loader: new TextFileLoader(),

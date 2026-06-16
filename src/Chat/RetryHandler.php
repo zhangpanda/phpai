@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Chat;
+namespace PHPAI\Chat;
 
 /**
  * Retries failed API calls with exponential backoff.

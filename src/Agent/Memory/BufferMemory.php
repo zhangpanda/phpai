@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Agent\Memory;
+namespace PHPAI\Agent\Memory;
 
-use Synapse\Chat\Message;
+use PHPAI\Chat\Message;
 
 final class BufferMemory implements MemoryInterface
 {

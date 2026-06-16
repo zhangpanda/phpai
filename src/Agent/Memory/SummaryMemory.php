@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Agent\Memory;
+namespace PHPAI\Agent\Memory;
 
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
 
 /**
  * When message count exceeds threshold, older messages are summarized

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Agent;
+namespace PHPAI\Agent;
 
-use Synapse\Agent\Memory\MemoryInterface;
-use Synapse\Agent\Middleware\MiddlewareInterface;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
-use Synapse\Chat\Role;
-use Synapse\Chat\Usage;
-use Synapse\Tools\ToolRegistry;
+use PHPAI\Agent\Memory\MemoryInterface;
+use PHPAI\Agent\Middleware\MiddlewareInterface;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Role;
+use PHPAI\Chat\Usage;
+use PHPAI\Tools\ToolRegistry;
 
 final class Agent
 {
@@ -120,7 +120,7 @@ final class Agent
                 try {
                     $this->memory?->save([Message::user($context->input), Message::assistant($response->content)]);
                 } catch (\Throwable $e) {
-                    error_log("[Synapse] Memory save failed: " . $e->getMessage());
+                    error_log("[PHPAI] Memory save failed: " . $e->getMessage());
                 }
 
                 return new AgentResponse(

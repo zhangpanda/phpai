@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Chat;
+namespace PHPAI\Chat;
 
 /**
  * Token bucket rate limiter for controlling API request frequency.

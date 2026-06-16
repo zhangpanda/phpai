@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Chat;
+namespace PHPAI\Tests\Unit\Chat;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Chat\Chat;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
-use Synapse\Chat\Response;
-use Synapse\Chat\StreamableInterface;
-use Synapse\Chat\StreamResponse;
-use Synapse\Chat\Usage;
+use PHPAI\Chat\Chat;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Response;
+use PHPAI\Chat\StreamableInterface;
+use PHPAI\Chat\StreamResponse;
+use PHPAI\Chat\Usage;
 
 final class StreamTest extends TestCase
 {

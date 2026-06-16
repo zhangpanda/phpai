@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Observability;
+namespace PHPAI\Observability;
 
 final class Tracer
 {

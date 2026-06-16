@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Tools;
+namespace PHPAI\Tests\Unit\Tools;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Tools\AsTool;
-use Synapse\Tools\Param;
-use Synapse\Tools\ToolRegistry;
+use PHPAI\Tools\AsTool;
+use PHPAI\Tools\Param;
+use PHPAI\Tools\ToolRegistry;
 
 class FakeTool
 {

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Chat\Provider;
+namespace PHPAI\Chat\Provider;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Synapse\Chat\ChatException;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
-use Synapse\Chat\Response;
-use Synapse\Chat\RetryHandler;
-use Synapse\Chat\Role;
-use Synapse\Chat\ToolCall;
-use Synapse\Chat\Usage;
+use PHPAI\Chat\ChatException;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Response;
+use PHPAI\Chat\RetryHandler;
+use PHPAI\Chat\Role;
+use PHPAI\Chat\ToolCall;
+use PHPAI\Chat\Usage;
 
-final class OpenAI implements ChatInterface, \Synapse\Chat\StreamableInterface
+final class OpenAI implements ChatInterface, \PHPAI\Chat\StreamableInterface
 {
     private ClientInterface $client;
     private RetryHandler $retry;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\StructuredOutput;
+namespace PHPAI\Tests\Unit\StructuredOutput;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\StructuredOutput\AsOutput;
-use Synapse\StructuredOutput\Param;
-use Synapse\StructuredOutput\SchemaExtractor;
+use PHPAI\StructuredOutput\AsOutput;
+use PHPAI\StructuredOutput\Param;
+use PHPAI\StructuredOutput\SchemaExtractor;
 
 #[AsOutput(description: 'A test output')]
 class TestOutput

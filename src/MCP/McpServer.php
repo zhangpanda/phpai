@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Synapse\MCP;
+namespace PHPAI\MCP;
 
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionNamedType;
-use Synapse\MCP\Transport\StdioTransport;
-use Synapse\MCP\Transport\TransportInterface;
+use PHPAI\MCP\Transport\StdioTransport;
+use PHPAI\MCP\Transport\TransportInterface;
 
 final class McpServer
 {

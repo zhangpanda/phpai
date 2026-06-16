@@ -1,6 +1,6 @@
-# Synapse Laravel
+# PHPAI Laravel
 
-Laravel integration for the [Synapse](https://github.com/zhangpanda/synapse) PHP AI framework.
+Laravel integration for the [PHPAI](https://github.com/zhangpanda/phpai) PHP AI framework.
 
 ## Installation
 
@@ -9,20 +9,20 @@ Laravel integration for the [Synapse](https://github.com/zhangpanda/synapse) PHP
 ```json
 {
     "repositories": [
-        {"type": "path", "url": "/path/to/synapse/packages/laravel"}
+        {"type": "path", "url": "/path/to/phpai/packages/laravel"}
     ]
 }
 ```
 
 然后安装：
 ```bash
-composer require synapse-php/laravel:@dev
+composer require zhangpanda/phpai-laravel:@dev
 ```
 
 The service provider is auto-discovered. Publish the config:
 
 ```bash
-php artisan vendor:publish --tag=synapse-config
+php artisan vendor:publish --tag=phpai-config
 ```
 
 ## Configuration
@@ -39,8 +39,8 @@ DEEPSEEK_API_KEY=sk-xxx
 ### Dependency Injection
 
 ```php
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
 
 class ChatController extends Controller
 {
@@ -58,18 +58,18 @@ class ChatController extends Controller
 ### Facade
 
 ```php
-use Synapse\Laravel\Facades\Synapse;
-use Synapse\Chat\Message;
+use PHPAI\Laravel\Facades\PHPAI;
+use PHPAI\Chat\Message;
 
-$response = Synapse::send([Message::user('Hi')]);
+$response = PHPAI::send([Message::user('Hi')]);
 ```
 
 ### SSE Streaming
 
 ```php
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
-use Synapse\Laravel\Http\SseStream;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
+use PHPAI\Laravel\Http\SseStream;
 
 class StreamController extends Controller
 {

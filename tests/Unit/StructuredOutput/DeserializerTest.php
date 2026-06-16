@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\StructuredOutput;
+namespace PHPAI\Tests\Unit\StructuredOutput;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\StructuredOutput\Deserializer;
+use PHPAI\StructuredOutput\Deserializer;
 
 class SimpleOutput
 {

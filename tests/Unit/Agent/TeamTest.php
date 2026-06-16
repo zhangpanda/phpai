@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Agent;
+namespace PHPAI\Tests\Unit\Agent;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Agent\Agent;
-use Synapse\Agent\Team;
-use Synapse\Agent\TeamResult;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
-use Synapse\Chat\Response;
-use Synapse\Chat\Usage;
+use PHPAI\Agent\Agent;
+use PHPAI\Agent\Team;
+use PHPAI\Agent\TeamResult;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Response;
+use PHPAI\Chat\Usage;
 
 final class TeamTest extends TestCase
 {

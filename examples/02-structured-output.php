@@ -9,12 +9,12 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\Chat\Message;
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\StructuredOutput\AsOutput;
-use Synapse\StructuredOutput\Deserializer;
-use Synapse\StructuredOutput\Param;
-use Synapse\StructuredOutput\SchemaExtractor;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\StructuredOutput\AsOutput;
+use PHPAI\StructuredOutput\Deserializer;
+use PHPAI\StructuredOutput\Param;
+use PHPAI\StructuredOutput\SchemaExtractor;
 
 // Define output structure via Attributes
 #[AsOutput(description: 'Sentiment analysis result')]

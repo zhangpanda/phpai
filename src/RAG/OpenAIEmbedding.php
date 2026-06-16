@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\RAG;
+namespace PHPAI\RAG;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;

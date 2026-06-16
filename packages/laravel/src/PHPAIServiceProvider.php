@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Laravel;
+namespace PHPAI\Laravel;
 
 use Illuminate\Support\ServiceProvider;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Provider\Anthropic;
-use Synapse\Chat\Provider\DeepSeek;
-use Synapse\Chat\Provider\Ollama;
-use Synapse\Chat\Provider\OpenAI;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Provider\Anthropic;
+use PHPAI\Chat\Provider\DeepSeek;
+use PHPAI\Chat\Provider\Ollama;
+use PHPAI\Chat\Provider\OpenAI;
 
-final class SynapseServiceProvider extends ServiceProvider
+final class PHPAIServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/synapse.php', 'synapse');
+        $this->mergeConfigFrom(__DIR__ . '/../config/phpai.php', 'phpai');
 
         $this->app->singleton(ChatInterface::class, function ($app) {
-            return $this->buildProvider($app['config']['synapse']);
+            return $this->buildProvider($app['config']['phpai']);
         });
 
-        $this->app->alias(ChatInterface::class, 'synapse.chat');
+        $this->app->alias(ChatInterface::class, 'phpai.chat');
     }
 
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/synapse.php' => config_path('synapse.php'),
-            ], 'synapse-config');
+                __DIR__ . '/../config/phpai.php' => config_path('phpai.php'),
+            ], 'phpai-config');
         }
     }
 

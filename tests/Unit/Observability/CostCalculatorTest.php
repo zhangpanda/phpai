@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Observability;
+namespace PHPAI\Tests\Unit\Observability;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Observability\CostCalculator;
+use PHPAI\Observability\CostCalculator;
 
 final class CostCalculatorTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Prompt;
+namespace PHPAI\Prompt;
 
 final class Template
 {

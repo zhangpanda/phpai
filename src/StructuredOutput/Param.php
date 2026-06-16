@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\StructuredOutput;
+namespace PHPAI\StructuredOutput;
 
 use Attribute;
 

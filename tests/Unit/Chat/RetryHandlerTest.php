@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Chat;
+namespace PHPAI\Tests\Unit\Chat;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Chat\ChatException;
-use Synapse\Chat\RetryHandler;
+use PHPAI\Chat\ChatException;
+use PHPAI\Chat\RetryHandler;
 
 final class RetryHandlerTest extends TestCase
 {

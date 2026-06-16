@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tools;
+namespace PHPAI\Tools;
 
 use Attribute;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Prompt;
+namespace PHPAI\Tests\Unit\Prompt;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Prompt\Template;
+use PHPAI\Prompt\Template;
 
 final class TemplateTest extends TestCase
 {

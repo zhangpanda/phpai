@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\MCP;
+namespace PHPAI\Tests\Unit\MCP;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\MCP\McpResource;
-use Synapse\MCP\McpServer;
-use Synapse\MCP\McpTool;
+use PHPAI\MCP\McpResource;
+use PHPAI\MCP\McpServer;
+use PHPAI\MCP\McpTool;
 
 class FakeMcpTool
 {

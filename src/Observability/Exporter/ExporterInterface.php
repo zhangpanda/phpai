@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Observability\Exporter;
+namespace PHPAI\Observability\Exporter;
 
-use Synapse\Observability\Span;
+use PHPAI\Observability\Span;
 
 interface ExporterInterface
 {

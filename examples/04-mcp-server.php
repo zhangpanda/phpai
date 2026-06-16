@@ -16,10 +16,10 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\MCP\McpServer;
-use Synapse\MCP\McpTool;
-use Synapse\MCP\McpResource;
-use Synapse\MCP\Param;
+use PHPAI\MCP\McpServer;
+use PHPAI\MCP\McpTool;
+use PHPAI\MCP\McpResource;
+use PHPAI\MCP\Param;
 
 class DemoTools
 {

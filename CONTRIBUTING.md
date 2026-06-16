@@ -1,12 +1,12 @@
 # 贡献指南
 
-感谢你对 Synapse 的关注！欢迎通过以下方式参与贡献。
+感谢你对 PHPAI 的关注！欢迎通过以下方式参与贡献。
 
 ## 开发环境
 
 ```bash
-git clone https://github.com/zhangpanda/synapse.git
-cd synapse
+git clone https://github.com/zhangpanda/phpai.git
+cd phpai
 composer install
 ```
 

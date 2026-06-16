@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Agent;
+namespace PHPAI\Agent;
 
-use Synapse\Chat\Usage;
+use PHPAI\Chat\Usage;
 
 final readonly class AgentResponse
 {

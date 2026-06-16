@@ -75,10 +75,10 @@
 ```php
 <?php
 
-namespace Synapse\Chat;
+namespace PHPAI\Chat;
 
-use Synapse\Chat\Message\Message;
-use Synapse\Chat\Message\Role;
+use PHPAI\Chat\Message\Message;
+use PHPAI\Chat\Message\Role;
 
 interface ChatInterface
 {
@@ -142,10 +142,10 @@ final readonly class Usage
 ```php
 <?php
 
-namespace Synapse\Chat\Provider;
+namespace PHPAI\Chat\Provider;
 
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Response;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Response;
 
 final class OpenAI implements ChatInterface
 {
@@ -170,8 +170,8 @@ final class OpenAI implements ChatInterface
 **使用示例:**
 
 ```php
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\Chat\Message\Message;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\Chat\Message\Message;
 
 $chat = new OpenAI(apiKey: $_ENV['OPENAI_API_KEY']);
 
@@ -193,7 +193,7 @@ echo "消耗 {$response->usage->totalTokens} tokens";
 ```php
 <?php
 
-namespace Synapse\StructuredOutput;
+namespace PHPAI\StructuredOutput;
 
 use Attribute;
 
@@ -250,8 +250,8 @@ interface StructuredChatInterface
 ```php
 <?php
 
-use Synapse\StructuredOutput\AsOutput;
-use Synapse\StructuredOutput\Param;
+use PHPAI\StructuredOutput\AsOutput;
+use PHPAI\StructuredOutput\Param;
 
 #[AsOutput(description: '代码审查结果')]
 final class CodeReview
@@ -292,7 +292,7 @@ foreach ($review->issues as $issue) {
 ```php
 <?php
 
-namespace Synapse\Tools;
+namespace PHPAI\Tools;
 
 use Attribute;
 
@@ -341,8 +341,8 @@ final class ToolRegistry
 ```php
 <?php
 
-use Synapse\Tools\AsTool;
-use Synapse\Tools\Param;
+use PHPAI\Tools\AsTool;
+use PHPAI\Tools\Param;
 
 final class WeatherTool
 {
@@ -376,12 +376,12 @@ final class CalculatorTool
 ```php
 <?php
 
-namespace Synapse\Agent;
+namespace PHPAI\Agent;
 
-use Synapse\Chat\ChatInterface;
-use Synapse\Tools\ToolRegistry;
-use Synapse\Agent\Memory\MemoryInterface;
-use Synapse\Agent\Middleware\MiddlewareInterface;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Tools\ToolRegistry;
+use PHPAI\Agent\Memory\MemoryInterface;
+use PHPAI\Agent\Middleware\MiddlewareInterface;
 
 final class Agent
 {
@@ -416,7 +416,7 @@ final class Agent
 }
 
 // Memory 接口
-namespace Synapse\Agent\Memory;
+namespace PHPAI\Agent\Memory;
 
 interface MemoryInterface
 {
@@ -438,7 +438,7 @@ final class SummaryMemory implements MemoryInterface
 }
 
 // 中间件接口
-namespace Synapse\Agent\Middleware;
+namespace PHPAI\Agent\Middleware;
 
 interface MiddlewareInterface
 {
@@ -456,10 +456,10 @@ final class Logger implements MiddlewareInterface { /* 记录每步推理过程 
 ```php
 <?php
 
-use Synapse\Agent\Agent;
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\Agent\Memory\BufferMemory;
-use Synapse\Agent\Middleware\CostTracker;
+use PHPAI\Agent\Agent;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\Agent\Memory\BufferMemory;
+use PHPAI\Agent\Middleware\CostTracker;
 
 $agent = Agent::create()
     ->provider(new OpenAI(apiKey: $_ENV['OPENAI_API_KEY'], model: 'gpt-4o'))
@@ -484,7 +484,7 @@ echo $response->totalCost; // 本次对话花费
 ```php
 <?php
 
-namespace Synapse\MCP;
+namespace PHPAI\MCP;
 
 use Attribute;
 
@@ -551,9 +551,9 @@ final class McpClient
 <?php
 // bin/mcp-server.php — 暴露电商系统为 MCP Server
 
-use Synapse\MCP\McpServer;
-use Synapse\MCP\McpTool;
-use Synapse\MCP\McpResource;
+use PHPAI\MCP\McpServer;
+use PHPAI\MCP\McpTool;
+use PHPAI\MCP\McpResource;
 
 final class ShopTools
 {
@@ -603,7 +603,7 @@ McpServer::create('shopxo-mcp', '1.0.0')
 ```php
 <?php
 
-namespace Synapse\RAG;
+namespace PHPAI\RAG;
 
 // 文档加载器接口
 interface LoaderInterface
@@ -687,7 +687,7 @@ final class RagPipeline
 ```php
 <?php
 
-namespace Synapse\Prompt;
+namespace PHPAI\Prompt;
 
 final class Template
 {
@@ -728,7 +728,7 @@ $prompt = Template::from('你是一个 {{role}}，请用 {{language}} 回答。\
 ```php
 <?php
 
-namespace Synapse\Observability;
+namespace PHPAI\Observability;
 
 final readonly class Span
 {
@@ -777,7 +777,7 @@ final class CostCalculator
 ## 4. 目录结构
 
 ```
-synapse/
+phpai/
 ├── src/
 │   ├── Chat/
 │   │   ├── ChatInterface.php
@@ -879,7 +879,7 @@ synapse/
 
 ```json
 {
-    "name": "synapse/synapse",
+    "name": "zhangpanda/phpai",
     "description": "Attribute-driven, type-safe PHP AI framework with MCP support",
     "require": {
         "php": "^8.3",
@@ -901,7 +901,7 @@ synapse/
     },
     "autoload": {
         "psr-4": {
-            "Synapse\\": "src/"
+            "PHPAI\\": "src/"
         }
     }
 }
@@ -939,7 +939,7 @@ synapse/
 | RAG Pipeline | 全流程: Loader → Splitter → Embedding → Store → Query |
 | SummaryMemory | LLM 驱动的记忆摘要 |
 | HTTP SSE Transport | MCP 的 HTTP 传输模式 |
-| Laravel 集成包 | synapse/laravel ServiceProvider |
+| Laravel 集成包 | zhangpanda/phpai-laravel ServiceProvider |
 | 文档站 | ReadTheDocs 或 VitePress |
 
 ---
@@ -953,10 +953,10 @@ synapse/
 
 require 'vendor/autoload.php';
 
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\Chat\Message\Message;
-use Synapse\StructuredOutput\AsOutput;
-use Synapse\StructuredOutput\Param;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\Chat\Message\Message;
+use PHPAI\StructuredOutput\AsOutput;
+use PHPAI\StructuredOutput\Param;
 
 #[AsOutput(description: '从文本中提取的联系人信息')]
 class Contact
@@ -993,10 +993,10 @@ echo $contact->company; // "腾讯"
 ```php
 <?php
 
-use Synapse\Agent\Agent;
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\Tools\AsTool;
-use Synapse\Tools\Param;
+use PHPAI\Agent\Agent;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\Tools\AsTool;
+use PHPAI\Tools\Param;
 
 class ProductTool
 {
@@ -1042,9 +1042,9 @@ echo $response->content;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\MCP\McpServer;
-use Synapse\MCP\McpTool;
-use Synapse\MCP\McpResource;
+use PHPAI\MCP\McpServer;
+use PHPAI\MCP\McpTool;
+use PHPAI\MCP\McpResource;
 
 class DatabaseTool
 {

@@ -17,9 +17,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\Chat\Message;
-use Synapse\Chat\Provider\DeepSeek;
-use Synapse\Chat\SseWriter;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Provider\DeepSeek;
+use PHPAI\Chat\SseWriter;
 
 $chat = new DeepSeek(apiKey: $_ENV['DEEPSEEK_API_KEY'] ?? getenv('DEEPSEEK_API_KEY') ?: die('Set DEEPSEEK_API_KEY'));
 

@@ -1,11 +1,11 @@
 {
-    "name": "synapse-php/laravel",
-    "description": "Laravel integration for Synapse PHP AI framework",
+    "name": "zhangpanda/phpai-laravel",
+    "description": "Laravel integration for PHPAI PHP AI framework",
     "type": "library",
     "license": "Apache-2.0",
     "require": {
         "php": "^8.3",
-        "synapse-php/synapse": "^0.1",
+        "zhangpanda/phpai": "^0.2",
         "illuminate/support": "^11.0|^12.0"
     },
     "require-dev": {
@@ -14,18 +14,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Synapse\\Laravel\\": "src/"
+            "PHPAI\\Laravel\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Synapse\\Laravel\\Tests\\": "tests/"
+            "PHPAI\\Laravel\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Synapse\\Laravel\\SynapseServiceProvider"
+                "PHPAI\\Laravel\\PHPAIServiceProvider"
             ]
         }
     }

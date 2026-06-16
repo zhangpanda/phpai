@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\MCP;
+namespace PHPAI\MCP;
 
 use Attribute;
 

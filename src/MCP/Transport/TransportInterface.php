@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\MCP\Transport;
+namespace PHPAI\MCP\Transport;
 
 interface TransportInterface
 {

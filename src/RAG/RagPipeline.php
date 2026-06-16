@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\RAG;
+namespace PHPAI\RAG;
 
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
 
 final class RagPipeline
 {

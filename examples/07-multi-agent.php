@@ -10,9 +10,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\Agent\Agent;
-use Synapse\Agent\Team;
-use Synapse\Chat\Provider\DeepSeek;
+use PHPAI\Agent\Agent;
+use PHPAI\Agent\Team;
+use PHPAI\Chat\Provider\DeepSeek;
 
 $chat = new DeepSeek(apiKey: $_ENV['DEEPSEEK_API_KEY'] ?? getenv('DEEPSEEK_API_KEY') ?: throw new RuntimeException('Set DEEPSEEK_API_KEY'));
 

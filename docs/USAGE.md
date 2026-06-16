@@ -1,10 +1,10 @@
-# Synapse 使用文档
+# PHPAI 使用文档
 
 ## Chat — 多 Provider 对话
 
 ```php
-use Synapse\Chat\Provider\{OpenAI, Anthropic, DeepSeek, Ollama};
-use Synapse\Chat\Message;
+use PHPAI\Chat\Provider\{OpenAI, Anthropic, DeepSeek, Ollama};
+use PHPAI\Chat\Message;
 
 // OpenAI
 $chat = new OpenAI(apiKey: 'sk-xxx', model: 'gpt-4o');
@@ -31,8 +31,8 @@ echo $response->usage->totalTokens;
 ## StructuredOutput — 类型化输出
 
 ```php
-use Synapse\StructuredOutput\{AsOutput, Param};
-use Synapse\Chat\Chat;
+use PHPAI\StructuredOutput\{AsOutput, Param};
+use PHPAI\Chat\Chat;
 
 #[AsOutput(description: '商品信息')]
 class Product
@@ -55,7 +55,7 @@ $product = Chat::structured($chat, [
 ## Tools — 工具定义
 
 ```php
-use Synapse\Tools\{AsTool, Param};
+use PHPAI\Tools\{AsTool, Param};
 
 class MyTool
 {
@@ -71,9 +71,9 @@ class MyTool
 ## Agent — 智能体
 
 ```php
-use Synapse\Agent\Agent;
-use Synapse\Agent\Memory\{BufferMemory, SummaryMemory};
-use Synapse\Agent\Middleware\{CostTracker, Logger};
+use PHPAI\Agent\Agent;
+use PHPAI\Agent\Memory\{BufferMemory, SummaryMemory};
+use PHPAI\Agent\Middleware\{CostTracker, Logger};
 
 $agent = Agent::create()
     ->provider($chat)
@@ -100,7 +100,7 @@ echo count($response->steps); // 工具调用步骤数
 ### 创建 MCP Server
 
 ```php
-use Synapse\MCP\{McpServer, McpTool, McpResource};
+use PHPAI\MCP\{McpServer, McpTool, McpResource};
 
 class Tools {
     #[McpTool(description: '查数据库')]
@@ -121,7 +121,7 @@ McpServer::create('my-app')
 ### 连接 MCP Server
 
 ```php
-use Synapse\MCP\McpClient;
+use PHPAI\MCP\McpClient;
 
 $client = McpClient::connectStdio('php', ['server.php']);
 $client->initialize();
@@ -135,7 +135,7 @@ $client->close();
 ## RAG — 检索增强生成
 
 ```php
-use Synapse\RAG\{RagPipeline, TextFileLoader, RecursiveCharacterSplitter, OpenAIEmbedding, InMemoryStore};
+use PHPAI\RAG\{RagPipeline, TextFileLoader, RecursiveCharacterSplitter, OpenAIEmbedding, InMemoryStore};
 
 $rag = new RagPipeline(
     loader: new TextFileLoader(),
@@ -154,7 +154,7 @@ $answer = $rag->query('如何配置？', $chat);
 ## Prompt — 模板
 
 ```php
-use Synapse\Prompt\Template;
+use PHPAI\Prompt\Template;
 
 $prompt = Template::from('你是{{role}}，用{{lang}}回答：{{question}}')
     ->with('role', 'PHP 专家')
@@ -171,8 +171,8 @@ $prompt = Template::from('你是{{role}}，用{{lang}}回答：{{question}}')
 ## Observability — 可观测性
 
 ```php
-use Synapse\Observability\{Tracer, CostCalculator};
-use Synapse\Observability\Exporter\{OtelExporter, LogExporter};
+use PHPAI\Observability\{Tracer, CostCalculator};
+use PHPAI\Observability\Exporter\{OtelExporter, LogExporter};
 
 // 手动追踪
 $tracer = new Tracer();
@@ -196,8 +196,8 @@ $exporter->flush();
 ### 纯 PHP（无框架）
 
 ```php
-use Synapse\Chat\{SseWriter, Message};
-use Synapse\Chat\Provider\DeepSeek;
+use PHPAI\Chat\{SseWriter, Message};
+use PHPAI\Chat\Provider\DeepSeek;
 
 $chat = new DeepSeek(apiKey: $_ENV['DEEPSEEK_API_KEY']);
 
@@ -210,7 +210,7 @@ SseWriter::stream($chat, [
 ### 手动控制
 
 ```php
-use Synapse\Chat\{Chat, Message, SseWriter};
+use PHPAI\Chat\{Chat, Message, SseWriter};
 
 SseWriter::start(); // 发送 SSE headers
 
@@ -225,8 +225,8 @@ SseWriter::done();
 ### Laravel 集成
 
 ```php
-use Synapse\Laravel\Http\SseStream;
-use Synapse\Chat\{ChatInterface, Message};
+use PHPAI\Laravel\Http\SseStream;
+use PHPAI\Chat\{ChatInterface, Message};
 
 Route::get('/chat/stream', function (ChatInterface $chat) {
     return SseStream::response($chat, [
@@ -255,7 +255,7 @@ source.onmessage = (e) => {
 多个 Agent 按顺序执行，每个 Agent 接收上一个的输出：
 
 ```php
-use Synapse\Agent\{Agent, Team};
+use PHPAI\Agent\{Agent, Team};
 
 $team = Team::create()
     ->add('researcher', Agent::create()
@@ -312,8 +312,8 @@ $result->steps[0]->response;  // AgentResponse
 所有 Provider 已内置重试（默认 3 次），无需手动配置。自定义参数：
 
 ```php
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\Chat\RetryHandler;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\Chat\RetryHandler;
 
 $chat = new OpenAI(
     apiKey: 'sk-xxx',
@@ -340,7 +340,7 @@ $chat = new OpenAI(
 控制对 API 的请求频率，避免触发限流：
 
 ```php
-use Synapse\Chat\RateLimiter;
+use PHPAI\Chat\RateLimiter;
 
 $limiter = new RateLimiter(maxRequests: 60, perSeconds: 60); // 60 rpm
 

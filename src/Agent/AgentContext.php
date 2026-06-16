@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Agent;
+namespace PHPAI\Agent;
 
 final class AgentContext
 {

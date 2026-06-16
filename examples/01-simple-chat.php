@@ -9,8 +9,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\Chat\Message;
-use Synapse\Chat\Provider\OpenAI;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Provider\OpenAI;
 
 $chat = new OpenAI(
     apiKey: getenv('OPENAI_API_KEY') ?: throw new RuntimeException('Set OPENAI_API_KEY'),

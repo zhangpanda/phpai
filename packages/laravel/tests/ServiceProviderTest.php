@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Laravel\Tests;
+namespace PHPAI\Laravel\Tests;
 
 use Orchestra\Testbench\TestCase;
-use Synapse\Chat\ChatInterface;
-use Synapse\Laravel\SynapseServiceProvider;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Laravel\PHPAIServiceProvider;
 
 final class ServiceProviderTest extends TestCase
 {
     protected function getPackageProviders($app): array
     {
-        return [SynapseServiceProvider::class];
+        return [PHPAIServiceProvider::class];
     }
 
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('synapse.default', 'ollama');
-        $app['config']->set('synapse.providers.ollama', [
+        $app['config']->set('phpai.default', 'ollama');
+        $app['config']->set('phpai.providers.ollama', [
             'model' => 'llama3',
             'base_url' => 'http://localhost:11434',
         ]);
@@ -32,7 +32,7 @@ final class ServiceProviderTest extends TestCase
 
     public function test_config_is_published(): void
     {
-        $this->artisan('vendor:publish', ['--tag' => 'synapse-config'])
+        $this->artisan('vendor:publish', ['--tag' => 'phpai-config'])
             ->assertExitCode(0);
     }
 }

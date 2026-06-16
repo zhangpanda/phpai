@@ -9,12 +9,12 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\RAG\InMemoryStore;
-use Synapse\RAG\OpenAIEmbedding;
-use Synapse\RAG\RagPipeline;
-use Synapse\RAG\RecursiveCharacterSplitter;
-use Synapse\RAG\TextFileLoader;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\RAG\InMemoryStore;
+use PHPAI\RAG\OpenAIEmbedding;
+use PHPAI\RAG\RagPipeline;
+use PHPAI\RAG\RecursiveCharacterSplitter;
+use PHPAI\RAG\TextFileLoader;
 
 $apiKey = getenv('OPENAI_API_KEY') ?: throw new RuntimeException('Set OPENAI_API_KEY');
 
@@ -31,7 +31,7 @@ echo "已索引 {$indexed} 个文本块\n\n";
 
 // 基于文档回答问题
 $chat = new OpenAI(apiKey: $apiKey);
-$answer = $rag->query('Synapse 支持哪些 LLM Provider？', $chat);
+$answer = $rag->query('PHPAI 支持哪些 LLM Provider？', $chat);
 
-echo "问题: Synapse 支持哪些 LLM Provider？\n";
+echo "问题: PHPAI 支持哪些 LLM Provider？\n";
 echo "回答: {$answer}\n";

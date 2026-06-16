@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Laravel\Http;
+namespace PHPAI\Laravel\Http;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Chat;
-use Synapse\Chat\Message;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Chat;
+use PHPAI\Chat\Message;
 
 final class SseStream
 {

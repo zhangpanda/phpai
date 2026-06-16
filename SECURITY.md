@@ -12,7 +12,7 @@
 If you discover a security vulnerability, please report it responsibly:
 
 1. **Do NOT** open a public GitHub issue
-2. Email: security@synapse-php.dev (or use GitHub Security Advisories)
+2. Email: security@phpai.dev (or use GitHub Security Advisories)
 3. Include: description, reproduction steps, and potential impact
 4. We will acknowledge within 48 hours and provide a fix timeline within 7 days
 
@@ -21,7 +21,7 @@ If you discover a security vulnerability, please report it responsibly:
 ### API Keys
 - Never commit API keys to version control
 - Use environment variables or `.env` files (excluded from git)
-- Synapse does not log or store API keys beyond the request lifecycle
+- PHPAI does not log or store API keys beyond the request lifecycle
 
 ### SSE Streaming (SseWriter)
 - Add authentication middleware before exposing SSE endpoints

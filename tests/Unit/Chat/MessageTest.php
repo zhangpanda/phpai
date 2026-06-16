@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Chat;
+namespace PHPAI\Tests\Unit\Chat;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Chat\Message;
-use Synapse\Chat\Role;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Role;
 
 final class MessageTest extends TestCase
 {

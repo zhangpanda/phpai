@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Observability\Exporter;
+namespace PHPAI\Observability\Exporter;
 
 use Psr\Log\LoggerInterface;
-use Synapse\Observability\Span;
+use PHPAI\Observability\Span;
 
 final class LogExporter implements ExporterInterface
 {

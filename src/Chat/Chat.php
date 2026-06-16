@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Chat;
+namespace PHPAI\Chat;
 
-use Synapse\StructuredOutput\Deserializer;
-use Synapse\StructuredOutput\SchemaExtractor;
+use PHPAI\StructuredOutput\Deserializer;
+use PHPAI\StructuredOutput\SchemaExtractor;
 
 /**
  * Adds sendStructured() and stream() convenience methods to a ChatInterface.

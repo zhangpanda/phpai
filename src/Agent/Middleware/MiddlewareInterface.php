@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Agent\Middleware;
+namespace PHPAI\Agent\Middleware;
 
-use Synapse\Agent\AgentContext;
-use Synapse\Agent\AgentResponse;
+use PHPAI\Agent\AgentContext;
+use PHPAI\Agent\AgentResponse;
 
 interface MiddlewareInterface
 {

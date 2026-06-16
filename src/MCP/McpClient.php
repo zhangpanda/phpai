@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\MCP;
+namespace PHPAI\MCP;
 
-use Synapse\MCP\Transport\ProcessTransport;
-use Synapse\MCP\Transport\TransportInterface;
+use PHPAI\MCP\Transport\ProcessTransport;
+use PHPAI\MCP\Transport\TransportInterface;
 
 final class McpClient
 {
@@ -25,7 +25,7 @@ final class McpClient
         $this->request('initialize', [
             'protocolVersion' => '2024-11-05',
             'capabilities' => new \stdClass(),
-            'clientInfo' => ['name' => 'synapse-mcp-client', 'version' => '1.0.0'],
+            'clientInfo' => ['name' => 'phpai-mcp-client', 'version' => '1.0.0'],
         ]);
         $this->transport->send(['jsonrpc' => '2.0', 'method' => 'notifications/initialized']);
     }

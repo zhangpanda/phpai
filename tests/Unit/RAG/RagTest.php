@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\RAG;
+namespace PHPAI\Tests\Unit\RAG;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\RAG\Chunk;
-use Synapse\RAG\Document;
-use Synapse\RAG\InMemoryStore;
-use Synapse\RAG\RecursiveCharacterSplitter;
+use PHPAI\RAG\Chunk;
+use PHPAI\RAG\Document;
+use PHPAI\RAG\InMemoryStore;
+use PHPAI\RAG\RecursiveCharacterSplitter;
 
 final class RagTest extends TestCase
 {

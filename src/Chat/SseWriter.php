@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Chat;
+namespace PHPAI\Chat;
 
 /**
  * Framework-agnostic SSE (Server-Sent Events) writer for streaming AI responses.

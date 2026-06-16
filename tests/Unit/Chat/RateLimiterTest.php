@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Chat;
+namespace PHPAI\Tests\Unit\Chat;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Chat\RateLimiter;
+use PHPAI\Chat\RateLimiter;
 
 final class RateLimiterTest extends TestCase
 {

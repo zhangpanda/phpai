@@ -1,12 +1,12 @@
 {
-    "name": "synapse-php/synapse",
+    "name": "zhangpanda/phpai",
     "description": "Attribute-driven, type-safe PHP AI framework with MCP support",
     "type": "library",
     "license": "Apache-2.0",
     "keywords": ["ai", "llm", "openai", "anthropic", "mcp", "agent", "php8", "attribute"],
     "authors": [
         {
-            "name": "Synapse Contributors"
+            "name": "PHPAI Contributors"
         }
     ],
     "require": {
@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Synapse\\": "src/"
+            "PHPAI\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Synapse\\Tests\\": "tests/"
+            "PHPAI\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable",

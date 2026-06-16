@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Chat\Provider;
+namespace PHPAI\Chat\Provider;
 
 use GuzzleHttp\ClientInterface;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Response;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Response;
 
-use Synapse\Chat\StreamableInterface;
+use PHPAI\Chat\StreamableInterface;
 
 /**
  * Ollama provider — uses OpenAI-compatible API format.

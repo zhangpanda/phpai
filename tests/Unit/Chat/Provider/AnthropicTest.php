@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Unit\Chat\Provider;
+namespace PHPAI\Tests\Unit\Chat\Provider;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response as HttpResponse;
 use PHPUnit\Framework\TestCase;
-use Synapse\Chat\Message;
-use Synapse\Chat\Provider\Anthropic;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Provider\Anthropic;
 
 final class AnthropicTest extends TestCase
 {

@@ -8,11 +8,11 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Synapse\Agent\Agent;
-use Synapse\Agent\Memory\BufferMemory;
-use Synapse\Chat\Provider\OpenAI;
-use Synapse\Tools\AsTool;
-use Synapse\Tools\Param;
+use PHPAI\Agent\Agent;
+use PHPAI\Agent\Memory\BufferMemory;
+use PHPAI\Chat\Provider\OpenAI;
+use PHPAI\Tools\AsTool;
+use PHPAI\Tools\Param;
 
 // Define tools using Attributes
 class MathTool

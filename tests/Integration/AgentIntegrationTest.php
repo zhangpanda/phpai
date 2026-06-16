@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Tests\Integration;
+namespace PHPAI\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
-use Synapse\Agent\Agent;
-use Synapse\Agent\Team;
-use Synapse\Chat\ChatInterface;
-use Synapse\Chat\Message;
-use Synapse\Chat\Response;
-use Synapse\Chat\ToolCall;
-use Synapse\Chat\Usage;
-use Synapse\Tools\AsTool;
-use Synapse\Tools\Param;
+use PHPAI\Agent\Agent;
+use PHPAI\Agent\Team;
+use PHPAI\Chat\ChatInterface;
+use PHPAI\Chat\Message;
+use PHPAI\Chat\Response;
+use PHPAI\Chat\ToolCall;
+use PHPAI\Chat\Usage;
+use PHPAI\Tools\AsTool;
+use PHPAI\Tools\Param;
 
 /**
  * Integration tests: Agent workflow, Tool calling, Team collaboration.

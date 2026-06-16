@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Synapse\Observability\Exporter;
+namespace PHPAI\Observability\Exporter;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Synapse\Observability\Span;
+use PHPAI\Observability\Span;
 
 /**
  * Exports spans to OpenTelemetry Collector via OTLP HTTP/JSON.
@@ -19,7 +19,7 @@ final class OtelExporter implements ExporterInterface
 
     public function __construct(
         private readonly string $endpoint = 'http://localhost:4318/v1/traces',
-        private readonly string $serviceName = 'synapse',
+        private readonly string $serviceName = 'phpai',
         private readonly int $batchSize = 10,
         ?ClientInterface $client = null,
     ) {
@@ -69,7 +69,7 @@ final class OtelExporter implements ExporterInterface
                     ],
                 ],
                 'scopeSpans' => [[
-                    'scope' => ['name' => 'synapse', 'version' => '0.1.0'],
+                    'scope' => ['name' => 'phpai', 'version' => '0.1.0'],
                     'spans' => $this->buffer,
                 ]],
             ]],
