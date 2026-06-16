@@ -306,3 +306,55 @@ $result->steps[0]->agent;     // Agent 名称
 $result->steps[0]->input;     // 该 Agent 收到的输入
 $result->steps[0]->response;  // AgentResponse
 ```
+
+## RetryHandler — 自动重试
+
+所有 Provider 已内置重试（默认 3 次），无需手动配置。自定义参数：
+
+```php
+use Synapse\Chat\Provider\OpenAI;
+use Synapse\Chat\RetryHandler;
+
+$chat = new OpenAI(
+    apiKey: 'sk-xxx',
+    retry: new RetryHandler(
+        maxRetries: 5,        // 最多重试 5 次
+        baseDelayMs: 1000,    // 首次重试延迟 1s
+        multiplier: 2.0,      // 指数退避倍数
+        maxDelayMs: 60000,    // 最大延迟 60s
+    ),
+);
+```
+
+自动重试的场景：
+- HTTP 429（限流）— 尊重 `Retry-After` 头
+- HTTP 500/502/503（服务器错误）
+- 网络连接失败
+
+不重试的场景：
+- HTTP 401/403（认证失败）
+- HTTP 400（请求格式错误）
+
+## RateLimiter — 请求限流
+
+控制对 API 的请求频率，避免触发限流：
+
+```php
+use Synapse\Chat\RateLimiter;
+
+$limiter = new RateLimiter(maxRequests: 60, perSeconds: 60); // 60 rpm
+
+// 方式 1：阻塞等待直到有配额
+$limiter->wait();
+$chat->send($messages);
+
+// 方式 2：非阻塞尝试
+if ($limiter->tryAcquire()) {
+    $chat->send($messages);
+} else {
+    // 无配额，稍后重试或返回错误
+}
+
+// 查看剩余配额
+echo $limiter->remaining(); // 还能发几个请求
+```
