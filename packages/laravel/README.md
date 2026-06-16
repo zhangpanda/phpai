@@ -1,11 +1,22 @@
 # Synapse Laravel
 
-Laravel integration for the [Synapse](https://github.com/synapse-php/synapse) PHP AI framework.
+Laravel integration for the [Synapse](https://github.com/zhangpanda/synapse) PHP AI framework.
 
 ## Installation
 
+在 Laravel 项目的 `composer.json` 中添加本地路径仓库：
+
+```json
+{
+    "repositories": [
+        {"type": "path", "url": "/path/to/synapse/packages/laravel"}
+    ]
+}
+```
+
+然后安装：
 ```bash
-composer require synapse-php/laravel
+composer require synapse-php/laravel:@dev
 ```
 
 The service provider is auto-discovered. Publish the config:

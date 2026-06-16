@@ -18,7 +18,9 @@ PHP 生态在 AI 应用开发上严重落后于 Python（LangChain）和 JavaScr
 ## 安装
 
 ```bash
-composer require synapse-php/synapse
+git clone git@github.com:zhangpanda/synapse.git
+cd synapse
+composer install
 ```
 
 ## 快速上手
