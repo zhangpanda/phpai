@@ -5,7 +5,7 @@
 ## 开发环境
 
 ```bash
-git clone https://github.com/synapse-php/synapse.git
+git clone https://github.com/zhangpanda/synapse.git
 cd synapse
 composer install
 ```

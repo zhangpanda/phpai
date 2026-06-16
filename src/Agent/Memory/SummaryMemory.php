@@ -54,6 +54,9 @@ final class SummaryMemory implements MemoryInterface
     private function compress(): void
     {
         $toSummarize = array_slice($this->messages, 0, -$this->keepRecent);
+        if ($toSummarize === []) {
+            return;
+        }
         $kept = array_slice($this->messages, -$this->keepRecent);
 
         $text = '';

@@ -10,8 +10,9 @@ final class Tracer
     private array $spans = [];
     private CostCalculator $costCalculator;
 
-    public function __construct()
-    {
+    public function __construct(
+        private readonly int $maxSpans = 10000,
+    ) {
         $this->costCalculator = new CostCalculator();
     }
 
@@ -36,6 +37,11 @@ final class Tracer
         );
 
         $this->spans[] = $span;
+
+        if (count($this->spans) > $this->maxSpans) {
+            array_shift($this->spans);
+        }
+
         return $span;
     }
 

@@ -59,8 +59,10 @@ final class ToolRegistry
                 $args[] = $arguments[$param->getName()];
             } elseif ($param->isDefaultValueAvailable()) {
                 $args[] = $param->getDefaultValue();
-            } else {
+            } elseif ($param->allowsNull()) {
                 $args[] = null;
+            } else {
+                return json_encode(['error' => "Missing required parameter '{$param->getName()}' for tool '{$name}'"]);
             }
         }
 
@@ -96,6 +98,11 @@ final class ToolRegistry
             $found = true;
             $attr = $attrs[0]->newInstance();
             $name = $attr->name ?? $method->getName();
+
+            if (isset($this->tools[$name])) {
+                $existing = $this->tools[$name];
+                throw new \RuntimeException("Duplicate tool name '{$name}': already registered by " . $existing->instance::class . "::{$existing->method}()");
+            }
 
             $this->tools[$name] = new ToolDefinition(
                 name: $name,

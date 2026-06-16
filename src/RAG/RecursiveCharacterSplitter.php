@@ -9,15 +9,24 @@ final class RecursiveCharacterSplitter implements SplitterInterface
     public function __construct(
         private readonly int $chunkSize = 1000,
         private readonly int $overlap = 200,
-    ) {}
+    ) {
+        if ($chunkSize < 1) {
+            throw new \InvalidArgumentException('chunkSize must be at least 1');
+        }
+        if ($overlap < 0) {
+            throw new \InvalidArgumentException('overlap must not be negative');
+        }
+        if ($overlap >= $chunkSize) {
+            throw new \InvalidArgumentException("overlap ({$overlap}) must be less than chunkSize ({$chunkSize})");
+        }
+    }
 
     public function split(Document $document): array
     {
-        if ($this->chunkSize <= 0) {
+        $text = $document->content;
+        if ($text === '') {
             return [];
         }
-
-        $text = $document->content;
         $chunks = [];
         $start = 0;
         $len = strlen($text);

@@ -12,8 +12,9 @@ final class ProcessTransport implements TransportInterface
     private mixed $stdin;
     /** @var resource */
     private mixed $stdout;
+    private bool $closed = false;
 
-    public function __construct(string $command, array $args = [])
+    public function __construct(string $command, array $args = [], private readonly int $timeoutSeconds = 30)
     {
         $cmd = implode(' ', array_map('escapeshellarg', [$command, ...$args]));
         $descriptors = [0 => ['pipe', 'r'], 1 => ['pipe', 'r'], 2 => ['pipe', 'w']];
@@ -23,8 +24,7 @@ final class ProcessTransport implements TransportInterface
             throw new \RuntimeException("Failed to start process: {$cmd}");
         }
 
-        // Check if process exited immediately (command not found)
-        usleep(50000); // 50ms
+        usleep(50000);
         $status = proc_get_status($this->process);
         if (!$status['running'] && $status['exitcode'] !== 0) {
             $stderr = isset($pipes[2]) ? stream_get_contents($pipes[2]) : '';
@@ -34,11 +34,16 @@ final class ProcessTransport implements TransportInterface
 
         $this->stdin = $pipes[0];
         $this->stdout = $pipes[1];
+        stream_set_timeout($this->stdout, $this->timeoutSeconds);
     }
 
     public function send(array $message): void
     {
-        fwrite($this->stdin, json_encode($message) . "\n");
+        $data = json_encode($message) . "\n";
+        $written = @fwrite($this->stdin, $data);
+        if ($written === false || $written < strlen($data)) {
+            throw new \RuntimeException('Failed to write to MCP process stdin (process may have crashed)');
+        }
         fflush($this->stdin);
     }
 
@@ -46,6 +51,10 @@ final class ProcessTransport implements TransportInterface
     {
         $line = fgets($this->stdout);
         if ($line === false) {
+            $meta = stream_get_meta_data($this->stdout);
+            if ($meta['timed_out']) {
+                throw new \RuntimeException("MCP process read timeout ({$this->timeoutSeconds}s)");
+            }
             return null;
         }
         return json_decode(trim($line), true);
@@ -53,8 +62,12 @@ final class ProcessTransport implements TransportInterface
 
     public function close(): void
     {
-        fclose($this->stdin);
-        fclose($this->stdout);
+        if ($this->closed) {
+            return;
+        }
+        $this->closed = true;
+        @fclose($this->stdin);
+        @fclose($this->stdout);
         proc_terminate($this->process);
         proc_close($this->process);
     }

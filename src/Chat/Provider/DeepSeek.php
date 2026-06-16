@@ -8,7 +8,9 @@ use GuzzleHttp\ClientInterface;
 use Synapse\Chat\ChatInterface;
 use Synapse\Chat\Response;
 
-final class DeepSeek implements ChatInterface
+use Synapse\Chat\StreamableInterface;
+
+final class DeepSeek implements ChatInterface, StreamableInterface
 {
     private readonly OpenAI $openai;
 

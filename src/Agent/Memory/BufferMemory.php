@@ -11,7 +11,12 @@ final class BufferMemory implements MemoryInterface
     /** @var list<Message> */
     private array $messages = [];
 
-    public function __construct(private readonly int $maxMessages = 50) {}
+    public function __construct(private readonly int $maxMessages = 50)
+    {
+        if ($maxMessages < 1) {
+            throw new \InvalidArgumentException('maxMessages must be at least 1');
+        }
+    }
 
     public function load(): array
     {

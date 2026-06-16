@@ -136,7 +136,7 @@ final class McpServer
             $result = $method->invoke($tool['instance'], ...$args);
             $text = is_string($result) ? $result : (string) json_encode($result);
         } catch (\Throwable $e) {
-            $text = json_encode(['error' => "Tool execution failed: " . $e->getMessage()]);
+            return ['content' => [['type' => 'text', 'text' => "Tool execution failed: " . $e->getMessage()]], 'isError' => true];
         }
 
         return ['content' => [['type' => 'text', 'text' => $text]]];
